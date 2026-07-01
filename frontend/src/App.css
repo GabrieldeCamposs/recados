@@ -1,38 +1,235 @@
-.App {
-  text-align: center;
+/* ─── Reset e base ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #f4f6f9;
+  --surface:  #ffffff;
+  --border:   #e2e8f0;
+  --text:     #1e293b;
+  --muted:    #64748b;
+  --primary:  #4f46e5;
+  --primary-h:#4338ca;
+  --danger:   #ef4444;
+  --danger-h: #dc2626;
+  --radius:   8px;
+  --shadow:   0 1px 4px rgba(0,0,0,.08);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  font-size: 15px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+/* ─── Layout de autenticação ────────────────────────────── */
+.auth-wrapper {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 24px;
 }
 
-.App-link {
-  color: #61dafb;
+.auth-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 400px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.auth-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.auth-subtitle {
+  text-align: center;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+.auth-form { display: flex; flex-direction: column; gap: 16px; }
+
+.auth-link {
+  text-align: center;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.auth-link a { color: var(--primary); text-decoration: none; font-weight: 500; }
+.auth-link a:hover { text-decoration: underline; }
+
+/* ─── Campos ────────────────────────────────────────────── */
+.field { display: flex; flex-direction: column; gap: 6px; }
+
+.field label { font-size: 14px; font-weight: 500; color: var(--text); }
+
+.field input,
+.field textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--surface);
+  transition: border-color .15s;
+  width: 100%;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79,70,229,.12);
+}
+
+.field textarea { resize: vertical; }
+
+/* ─── Botões ────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .15s, opacity .15s;
+  font-family: inherit;
+}
+
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+
+.btn-primary  { background: var(--primary); color: #fff; width: 100%; }
+.btn-primary:hover:not(:disabled)  { background: var(--primary-h); }
+
+.btn-danger   { background: var(--danger); color: #fff; }
+.btn-danger:hover:not(:disabled)   { background: var(--danger-h); }
+
+.btn-outline  {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.btn-outline:hover:not(:disabled)  { background: var(--bg); }
+
+.btn-sm { padding: 6px 14px; font-size: 13px; }
+
+/* ─── Alertas ───────────────────────────────────────────── */
+.alert {
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.alert-error { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+
+/* ─── Header ────────────────────────────────────────────── */
+.app-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-title { font-weight: 700; font-size: 18px; color: var(--primary); }
+
+.header-right { display: flex; align-items: center; gap: 12px; }
+
+.header-user { font-size: 14px; color: var(--muted); }
+
+/* ─── Página principal ──────────────────────────────────── */
+.page-wrapper { min-height: 100vh; background: var(--bg); }
+
+.main-content {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 20px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.section-title { font-size: 17px; font-weight: 600; margin-bottom: 16px; }
+
+/* ─── Card / formulário ─────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+.recado-form { display: flex; flex-direction: column; gap: 14px; }
+
+/* ─── Lista de recados ──────────────────────────────────── */
+.recados-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+.recado-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.recado-body { flex: 1; min-width: 0; }
+
+.recado-titulo { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+
+.recado-texto {
+  color: var(--muted);
+  font-size: 14px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-bottom: 8px;
+}
+
+.recado-data { font-size: 12px; color: #94a3b8; }
+
+/* ─── Estado vazio ──────────────────────────────────────── */
+.empty-state {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* ─── Loading ───────────────────────────────────────────── */
+.loading-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
 }
